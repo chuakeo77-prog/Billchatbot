@@ -21,7 +21,7 @@ except Exception:
     pass
 
 # =========================================================
-# TIÊU ĐỀ ỨNG DỤNG
+# TIÊU ĐỀ
 # =========================================================
 
 st.markdown(
@@ -76,7 +76,7 @@ if "messages" not in st.session_state:
     ]
 
 # =========================================================
-# PHẦN 1: CHATBOT TƯ VẤN
+# PHẦN 1: CHATBOT
 # =========================================================
 
 with st.expander(
@@ -88,25 +88,18 @@ with st.expander(
         "Hỏi trợ lý về món bán chạy, topping, giá hoặc mức độ đường:"
     )
 
-    # -----------------------------------------------------
-    # HIỂN THỊ LỊCH SỬ CHAT
-    # -----------------------------------------------------
-
+    # Hiển thị lịch sử chat
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    # -----------------------------------------------------
-    # NHẬN CÂU HỎI
-    # -----------------------------------------------------
-
+    # Nhập câu hỏi
     user_prompt = st.chat_input(
-        "Nhập câu hỏi cho bot (VD: Món nào bán chạy nhất?)..."
+        "Nhập câu hỏi cho bot..."
     )
 
     if user_prompt:
 
-        # Thêm câu hỏi người dùng
         st.session_state.messages.append(
             {
                 "role": "user",
@@ -117,10 +110,6 @@ with st.expander(
         with st.chat_message("user"):
             st.markdown(user_prompt)
 
-        # -------------------------------------------------
-        # LOGIC CHATBOT
-        # -------------------------------------------------
-
         prompt_lower = user_prompt.lower()
 
         bot_response = (
@@ -129,7 +118,7 @@ with st.expander(
             "hoặc mức độ đường nhé!"
         )
 
-        # Món bán chạy / ngon
+        # Món ngon / bán chạy
         if (
             "bán chạy" in prompt_lower
             or "ngon" in prompt_lower
@@ -137,7 +126,6 @@ with st.expander(
             or "recommend" in prompt_lower
             or "gợi ý" in prompt_lower
         ):
-
             bot_response = (
                 "🌟 **Gợi ý món được yêu thích:**\n\n"
                 "🧋 **Trà sữa chân châu đường đen** – đậm đà, "
@@ -149,15 +137,14 @@ with st.expander(
 
         # Topping
         elif "topping" in prompt_lower:
-
             bot_response = (
-                "🧋 Quán có nhiều loại topping hấp dẫn:\n\n"
-                "⚫ **Trân châu đen** – dai, thơm.\n"
-                "⚪ **Trân châu trắng** – giòn nhẹ.\n"
-                "🧀 **Thạch phô mai** – béo ngậy.\n"
-                "🍮 **Pudding trứng** – mềm mịn.\n"
-                "🟡 **Trân châu hoàng kim** – dai giòn.\n"
-                "🌿 **Sương sáo** – thanh mát.\n\n"
+                "🧋 **Quán có nhiều loại topping:**\n\n"
+                "⚫ Trân châu đen – 5.000đ\n"
+                "⚪ Trân châu trắng – 5.000đ\n"
+                "🧀 Thạch phô mai – 8.000đ\n"
+                "🍮 Pudding trứng – 8.000đ\n"
+                "🟡 Trân châu hoàng kim – 6.000đ\n"
+                "🌿 Sương sáo – 5.000đ\n\n"
                 "👉 Bạn có thể chọn nhiều topping cùng lúc!"
             )
 
@@ -166,12 +153,11 @@ with st.expander(
             "đường" in prompt_lower
             or "ngọt" in prompt_lower
         ):
-
             bot_response = (
-                "🍬 Quán có 3 mức đường:\n\n"
-                "• **100% đường** – vị ngọt đậm.\n"
-                "• **70% đường** – ngọt vừa, dễ uống.\n"
-                "• **0% đường** – không thêm đường.\n\n"
+                "🍬 **Quán có 3 mức đường:**\n\n"
+                "• 100% đường – vị ngọt đậm.\n"
+                "• 70% đường – ngọt vừa, dễ uống.\n"
+                "• 0% đường – không thêm đường.\n\n"
                 "👉 Nếu bạn không thích quá ngọt, mình gợi ý "
                 "**70% đường**."
             )
@@ -182,29 +168,23 @@ with st.expander(
             or "hi" in prompt_lower
             or "hello" in prompt_lower
         ):
-
             bot_response = (
                 "Dạ chào bạn! 👋🥰 "
                 "Chúc bạn một ngày tốt lành! "
                 "Bạn muốn mình gợi ý một món trà sữa hôm nay không?"
             )
 
-        # Giá / menu
+        # Giá
         elif (
             "giá" in prompt_lower
             or "menu" in prompt_lower
             or "bao nhiêu" in prompt_lower
         ):
-
             bot_response = (
                 "📋 **Giá trà sữa:** từ **25.000đ – 35.000đ**.\n\n"
                 "🍮 **Giá topping:** từ **5.000đ – 8.000đ**.\n\n"
-                "Bạn có thể xem danh sách món đầy đủ ở phần đặt hàng bên dưới."
+                "Bạn có thể xem danh sách món đầy đủ ở phần đặt hàng."
             )
-
-        # -------------------------------------------------
-        # LƯU PHẢN HỒI
-        # -------------------------------------------------
 
         st.session_state.messages.append(
             {
@@ -219,14 +199,10 @@ with st.expander(
 st.write("---")
 
 # =========================================================
-# PHẦN 2: NHẬP THÔNG TIN VÀ CHỌN MÓN
+# PHẦN 2: THÔNG TIN KHÁCH HÀNG
 # =========================================================
 
-st.subheader("📝 Nhập thông tin đơn hàng")
-
-# ---------------------------------------------------------
-# TÊN KHÁCH HÀNG
-# ---------------------------------------------------------
+st.subheader("📝 Thông tin đơn hàng")
 
 ten_khach = st.text_input(
     "Tên khách hàng:",
@@ -236,32 +212,41 @@ ten_khach = st.text_input(
 
 st.write("---")
 
-st.subheader("🧋 Chọn món trà sữa")
+# =========================================================
+# PHẦN 3: CHỌN MÓN
+# =========================================================
 
-# ---------------------------------------------------------
-# CHỌN TRÀ SỮA
-# ---------------------------------------------------------
+st.subheader("🧋 Chọn món trà sữa")
 
 chon_tra_sua = st.selectbox(
     "Chọn loại trà sữa:",
-    list(MENU_TRASUA.keys())
+    list(MENU_TRASUA.keys()),
+    key="chon_tra_sua"
 )
 
-# ---------------------------------------------------------
+# Hiển thị giá
+gia_mon = MENU_TRASUA[chon_tra_sua]
+
+st.info(
+    f"💰 Giá: **{gia_mon:,}đ / ly**"
+)
+
+# =========================================================
 # SỐ LƯỢNG
-# ---------------------------------------------------------
+# =========================================================
 
 so_luong = st.number_input(
     "Số lượng:",
     min_value=1,
     max_value=100,
     value=1,
-    step=1
+    step=1,
+    key="so_luong"
 )
 
-# ---------------------------------------------------------
+# =========================================================
 # MỨC ĐỘ ĐƯỜNG
-# ---------------------------------------------------------
+# =========================================================
 
 muc_duong = st.radio(
     "Mức độ đường:",
@@ -270,14 +255,15 @@ muc_duong = st.radio(
         "70% đường",
         "0% đường (Không đường)"
     ],
-    horizontal=True
+    horizontal=True,
+    key="muc_duong"
 )
 
-# ---------------------------------------------------------
+# =========================================================
 # TOPPING
-# ---------------------------------------------------------
+# =========================================================
 
-st.write("Chọn Topping thêm (tùy chọn):")
+st.write("🍮 **Chọn Topping thêm:**")
 
 topping_duoc_chon = []
 
@@ -291,118 +277,185 @@ for i, topping in enumerate(MENU_TOPPING.keys()):
             f"{topping} (+{MENU_TOPPING[topping]:,}đ)",
             key=f"top_{topping}"
         ):
-
             topping_duoc_chon.append(topping)
 
-# ---------------------------------------------------------
-# THÊM MÓN VÀO GIỎ
-# ---------------------------------------------------------
+# =========================================================
+# TÍNH TIỀN MÓN ĐANG CHỌN
+# =========================================================
+
+tien_tra_sua = gia_mon * so_luong
+
+tien_topping_moi_ly = sum(
+    MENU_TOPPING[topping]
+    for topping in topping_duoc_chon
+)
+
+tien_topping = tien_topping_moi_ly * so_luong
+
+thanh_tien = tien_tra_sua + tien_topping
+
+st.markdown(
+    f"""
+    ### 💵 Thành tiền món đang chọn:
+    
+    **{thanh_tien:,}đ**
+    """
+)
+
+# =========================================================
+# THÊM VÀO GIỎ
+# =========================================================
 
 if st.button(
-    "➕ Thêm món này vào giỏ hàng",
-    type="secondary"
+    "➕ THÊM MÓN NÀY VÀO GIỎ",
+    type="primary",
+    use_container_width=True
 ):
 
-    gia_tra_sua = MENU_TRASUA[chon_tra_sua]
+    mon_moi = {
+        "ten_mon": chon_tra_sua,
+        "don_gia": gia_mon,
+        "so_luong": int(so_luong),
+        "muc_duong": muc_duong,
+        "topping": topping_duoc_chon.copy(),
+        "tien_topping": tien_topping_moi_ly,
+        "thanh_tien": thanh_tien
+    }
 
-    tien_ts = gia_tra_sua * so_luong
-
-    tien_top_1_ly = sum(
-        MENU_TOPPING[t]
-        for t in topping_duoc_chon
-    )
-
-    tien_top = tien_top_1_ly * so_luong
-
-    thanh_tien_item = tien_ts + tien_top
-
-    # Thêm món vào giỏ
-    st.session_state.cart.append(
-        {
-            "ten_mon": chon_tra_sua,
-            "so_luong": so_luong,
-            "muc_duong": muc_duong,
-            "topping": topping_duoc_chon.copy(),
-            "thanh_tien": thanh_tien_item
-        }
-    )
+    st.session_state.cart.append(mon_moi)
 
     st.success(
         f"✅ Đã thêm **{so_luong}x {chon_tra_sua}** vào giỏ hàng!"
     )
 
+    st.info(
+        "👉 Bạn có thể tiếp tục chọn món khác và bấm "
+        "**THÊM MÓN NÀY VÀO GIỎ**."
+    )
+
 st.write("---")
 
 # =========================================================
-# PHẦN 3: HIỂN THỊ GIỎ HÀNG
+# PHẦN 4: GIỎ HÀNG
 # =========================================================
 
 st.subheader(
-    f"🛒 Giỏ hàng của bạn ({len(st.session_state.cart)} loại món)"
+    f"🛒 GIỎ HÀNG ({len(st.session_state.cart)} loại món)"
 )
 
 if len(st.session_state.cart) > 0:
 
-    for idx, item in enumerate(st.session_state.cart):
+    tong_tam_tinh = 0
 
-        with st.container():
+    for idx, item in enumerate(
+        st.session_state.cart
+    ):
+
+        with st.container(border=True):
 
             st.markdown(
-                f"### {idx + 1}. {item['ten_mon']} "
-                f"(x{item['so_luong']})"
+                f"### 🧋 {idx + 1}. {item['ten_mon']}"
             )
 
-            st.write(
-                f"🍬 Đường: {item['muc_duong']}"
+            col1, col2 = st.columns(2)
+
+            with col1:
+                st.write(
+                    f"💵 Đơn giá: **{item['don_gia']:,}đ**"
+                )
+
+                st.write(
+                    f"🔢 Số lượng: **{item['so_luong']}**"
+                )
+
+            with col2:
+
+                st.write(
+                    f"🍬 Đường: **{item['muc_duong']}**"
+                )
+
+                topping_text = (
+                    ", ".join(item["topping"])
+                    if item["topping"]
+                    else "Không có"
+                )
+
+                st.write(
+                    f"🍮 Topping: **{topping_text}**"
+                )
+
+            st.markdown(
+                f"💰 **Thành tiền: {item['thanh_tien']:,}đ**"
             )
 
-            topping_text = (
-                ", ".join(item["topping"])
-                if item["topping"]
-                else "Không có"
-            )
+            tong_tam_tinh += item["thanh_tien"]
 
-            st.write(
-                f"🍮 Topping: {topping_text}"
-            )
-
-            st.write(
-                f"💰 Thành tiền: **{item['thanh_tien']:,}đ**"
-            )
-
+            # Nút xóa món
             if st.button(
-                "🗑️ Xóa món này",
-                key=f"del_{idx}"
+                f"🗑️ Xóa món {idx + 1}",
+                key=f"delete_{idx}",
+                use_container_width=True
             ):
 
                 st.session_state.cart.pop(idx)
 
+                # Xóa trạng thái nút để tránh lỗi
                 st.rerun()
 
-            st.write("---")
+    # =====================================================
+    # TỔNG GIỎ HÀNG
+    # =====================================================
 
-    # -----------------------------------------------------
+    st.markdown("---")
+
+    st.markdown(
+        f"""
+        <div style="
+            padding:20px;
+            border-radius:12px;
+            background-color:#f1f8e9;
+            border:2px solid #8bc34a;
+        ">
+            <h2 style="text-align:center;">
+                🧾 TỔNG GIỎ HÀNG
+            </h2>
+
+            <h1 style="text-align:center;">
+                {tong_tam_tinh:,}đ
+            </h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.write("")
+
+    # =====================================================
     # XÓA TOÀN BỘ
-    # -----------------------------------------------------
+    # =====================================================
 
     if st.button(
-        "🗑️ Xóa toàn bộ giỏ hàng",
-        type="tertiary"
+        "🗑️ XÓA TOÀN BỘ GIỎ HÀNG",
+        type="secondary",
+        use_container_width=True
     ):
 
         st.session_state.cart = []
+
+        st.success("✅ Đã xóa toàn bộ giỏ hàng.")
 
         st.rerun()
 
 else:
 
     st.info(
-        "🛒 Giỏ hàng của bạn đang trống. "
-        "Hãy chọn món và bấm 'Thêm món này vào giỏ hàng'."
+        "🛒 Giỏ hàng đang trống.\n\n"
+        "Hãy chọn món ở phía trên và bấm "
+        "**THÊM MÓN NÀY VÀO GIỎ**."
     )
 
 # =========================================================
-# PHẦN 4: THANH TOÁN VÀ XUẤT HÓA ĐƠN
+# PHẦN 5: THANH TOÁN
 # =========================================================
 
 st.write("---")
@@ -410,8 +463,9 @@ st.write("---")
 st.subheader("💰 Thanh toán")
 
 if st.button(
-    "🧾 Tính Tiền và Xuất Hóa Đơn Chung",
-    type="primary"
+    "🧾 TÍNH TIỀN & XUẤT HÓA ĐƠN",
+    type="primary",
+    use_container_width=True
 ):
 
     # -----------------------------------------------------
@@ -421,17 +475,18 @@ if st.button(
     if not ten_khach.strip():
 
         st.warning(
-            "⚠️ Vui lòng nhập tên khách hàng trước khi tính tiền!"
+            "⚠️ Vui lòng nhập tên khách hàng trước khi thanh toán!"
         )
 
     # -----------------------------------------------------
-    # KIỂM TRA GIỎ HÀNG
+    # KIỂM TRA GIỎ
     # -----------------------------------------------------
 
     elif len(st.session_state.cart) == 0:
 
         st.warning(
-            "⚠️ Giỏ hàng đang trống, vui lòng thêm ít nhất một món!"
+            "⚠️ Giỏ hàng đang trống. "
+            "Vui lòng thêm ít nhất một món!"
         )
 
     else:
@@ -445,21 +500,26 @@ if st.button(
             for item in st.session_state.cart
         )
 
+        tong_so_ly = sum(
+            item["so_luong"]
+            for item in st.session_state.cart
+        )
+
         thoi_gian = datetime.now().strftime(
             "%d/%m/%Y %H:%M:%S"
         )
 
         st.success(
-            "✅ Đã tạo hóa đơn thành công cho tất cả các món!"
+            "✅ Đã tạo hóa đơn thành công!"
         )
+
+        # -------------------------------------------------
+        # HIỂN THỊ HÓA ĐƠN
+        # -------------------------------------------------
 
         st.markdown(
-            "### 📋 KẾT QUẢ HÓA ĐƠN CHI TIẾT"
+            "## 📋 HÓA ĐƠN CHI TIẾT"
         )
-
-        # -------------------------------------------------
-        # TẠO DANH SÁCH HTML
-        # -------------------------------------------------
 
         danh_sach_html = ""
 
@@ -475,69 +535,85 @@ if st.button(
             )
 
             danh_sach_html += f"""
-            <p>
+            <div style="
+                padding:12px;
+                margin-bottom:10px;
+                border-bottom:1px dashed #aaa;
+            ">
+
                 <b>{idx}. {item['ten_mon']}</b>
-                (x{item['so_luong']})<br>
 
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                + Đường: {item['muc_duong']}<br>
+                <br>
+                🔢 Số lượng: {item['so_luong']}
 
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                + Topping: {topping_str}<br>
+                <br>
+                💵 Đơn giá: {item['don_gia']:,}đ
 
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <b>
-                    Thành tiền: {item['thanh_tien']:,}đ
-                </b>
-            </p>
+                <br>
+                🍬 Đường: {item['muc_duong']}
+
+                <br>
+                🍮 Topping: {topping_str}
+
+                <br>
+                💰 <b>Thành tiền: {item['thanh_tien']:,}đ</b>
+
+            </div>
             """
-
-        # -------------------------------------------------
-        # TẠO HÓA ĐƠN HTML
-        # -------------------------------------------------
 
         hoa_don_html = f"""
         <div style="
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            color: #333;
+            background-color:#ffffff;
+            padding:25px;
+            border-radius:15px;
+            border:2px solid #ddd;
+            color:#222;
         ">
 
-            <h2 style="text-align: center;">
+            <h2 style="text-align:center;">
                 🧋 QUÁN TRÀ SỮA HAPPY 🧋
             </h2>
 
-            <p>
-                <b>Địa chỉ:</b>
-                123 Đường Sữa, TP. Hồ Chí Minh
-            </p>
-
-            <p>
-                <b>Thời gian:</b>
-                {thoi_gian}
-            </p>
-
-            <p>
-                <b>Tên khách hàng:</b>
-                {ten_khach}
+            <p style="text-align:center;">
+                HÓA ĐƠN THANH TOÁN
             </p>
 
             <hr>
 
-            <h3>📋 DANH SÁCH CÁC MÓN ĐÃ ĐẶT</h3>
+            <p>
+                <b>📍 Địa chỉ:</b>
+                123 Đường Sữa, TP. Hồ Chí Minh
+            </p>
+
+            <p>
+                <b>⏰ Thời gian:</b>
+                {thoi_gian}
+            </p>
+
+            <p>
+                <b>👤 Khách hàng:</b>
+                {ten_khach}
+            </p>
+
+            <p>
+                <b>🥤 Tổng số ly:</b>
+                {tong_so_ly}
+            </p>
+
+            <hr>
+
+            <h3>📋 DANH SÁCH MÓN</h3>
 
             {danh_sach_html}
 
             <hr>
 
-            <h2 style="text-align: right;">
+            <h2 style="text-align:right;">
                 💰 TỔNG THANH TOÁN:
                 {tong_thanh_toan:,}đ
             </h2>
 
-            <p style="text-align: center;">
+            <p style="text-align:center;">
                 ❤️ Cảm ơn quý khách và hẹn gặp lại!
             </p>
 
@@ -565,10 +641,11 @@ Thời gian: {thoi_gian}
 
 Tên khách hàng: {ten_khach}
 
-========================================
-DANH SÁCH MÓN ĐÃ ĐẶT
-========================================
+Tổng số ly: {tong_so_ly}
 
+========================================
+          DANH SÁCH MÓN ĐÃ ĐẶT
+========================================
 """
 
         for idx, item in enumerate(
@@ -583,34 +660,38 @@ DANH SÁCH MÓN ĐÃ ĐẶT
             )
 
             noi_dung_file += f"""
+
 {idx}. {item['ten_mon']}
+----------------------------------------
+Đơn giá: {item['don_gia']:,} VNĐ
 Số lượng: {item['so_luong']}
 Mức đường: {item['muc_duong']}
 Topping: {topping_str}
 Thành tiền: {item['thanh_tien']:,} VNĐ
 
-----------------------------------------
 """
 
         noi_dung_file += f"""
 ========================================
-TỔNG THANH TOÁN: {tong_thanh_toan:,} VNĐ
+TỔNG THANH TOÁN:
+{tong_thanh_toan:,} VNĐ
 ========================================
 
 Cảm ơn quý khách!
 Hẹn gặp lại!
 """
 
-        # -------------------------------------------------
+        # =================================================
         # NÚT TẢI HÓA ĐƠN
-        # -------------------------------------------------
+        # =================================================
 
         st.download_button(
-            label="📥 Tải xuống file hóa đơn (.txt)",
+            label="📥 TẢI HÓA ĐƠN (.TXT)",
             data=noi_dung_file,
             file_name=(
                 f"HoaDon_"
                 f"{ten_khach.strip().replace(' ', '_')}.txt"
             ),
-            mime="text/plain"
+            mime="text/plain",
+            use_container_width=True
         )

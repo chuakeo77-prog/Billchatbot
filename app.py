@@ -11,9 +11,8 @@ try: st.image("Trasua.jpg", use_column_width=True) except: pass
 
 Tiêu đề ứng dụng 
 
-st.markdown("🧋 HÓA ĐƠN TRÀ SỮA & TRỢ LÝ TƯ VẤN 🧋 
-
-", unsafe_allow_html=True) st.write("---") 
+st.markdown("🧋 HÓA ĐƠN TRÀ SỮA & TRỢ LÝ TƯ VẤN 🧋 ", unsafe_allow_html=True) 
+st.write("---") 
 
 Định nghĩa bảng giá (có thể tùy chỉnh) 
 

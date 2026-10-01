@@ -5,8 +5,6 @@ st.image("TRASUA.jpg")
 
 st.set_page_config( page_title="Hóa Đơn Trà Sữa", page_icon="🧋", layout="centered" ) 
 
-Hiển thị ảnh (nếu có file Trasua.jpg cùng thư mục, nếu không có Streamlit sẽ bỏ qua hoặc hiện cảnh báo nhẹ) 
-
 try: st.image("Trasua.jpg", use_column_width=True) except: pass 
 
 Tiêu đề ứng dụng 

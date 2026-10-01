@@ -72,7 +72,7 @@ with st.expander("💬 Trò chuyện với Trợ lý ảo tư vấn trà sữa (
         prompt_lower = user_prompt.lower()
 
         if "bán chạy" in prompt_lower or "ngon" in prompt_lower or "best" in prompt_lower:
-bot_response = "🌟 Các món bán chạy nhất tại quán là **Trà sữa chân châu đường đen** (đậm đà, thơm ngọt) và **Trà sữa Matcha** (thanh mát, chuẩn vị Nhật)!"
+            bot_response = "🌟 Các món bán chạy nhất tại quán là **Trà sữa chân châu đường đen** (đậm đà, thơm ngọt) và **Trà sữa Matcha** (thanh mát, chuẩn vị Nhật)!"
         elif "topping" in prompt_lower:
             bot_response = "🧋 Quán có các loại topping rất dẻo và béo như: **Thạch phô mai** (béo ngậy), **Pudding trứng** (mềm mịn) và **Trân châu hoàng kim** dai giòn sần sật. Bạn nên thử kết hợp nhé!"
         elif "đường" in prompt_lower or "ngọt" in prompt_lower:

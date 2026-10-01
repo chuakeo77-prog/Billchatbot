@@ -1,7 +1,7 @@
 import streamlit as st 
 from datetime import datetime 
+
 st.image("TRASUA.jpg") 
-CẤU HÌNH TRANG (PHẢI ĐẶT Ở DÒNG ĐẦU TIÊN CỦA STREAMLIT) 
 
 st.set_page_config( page_title="Hóa Đơn Trà Sữa", page_icon="🧋", layout="centered" ) 
 

@@ -137,7 +137,7 @@ st.session_state.cart.append({
         "topping": topping_duoc_chon.copy(),
         "thanh_tien": thanh_tien_item
     })
-    st.success(f"Đã thêm **{so_luong}x {chon_tra_sua}** vào giỏ hàng!")
+st.success(f"Đã thêm **{so_luong}x {chon_tra_sua}** vào giỏ hàng!")
 
 st.write("---")
 
